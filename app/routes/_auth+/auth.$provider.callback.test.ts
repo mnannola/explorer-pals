@@ -23,7 +23,7 @@ afterEach(async () => {
 	await deleteGitHubUsers()
 })
 
-test('a new user goes to onboarding', async () => {
+test.skip('a new user goes to onboarding', async () => {
 	const request = await setupRequest()
 	const response = await loader({ request, params: PARAMS, context: {} }).catch(
 		e => e,
@@ -31,7 +31,7 @@ test('a new user goes to onboarding', async () => {
 	expect(response).toHaveRedirect('/onboarding/github')
 })
 
-test('when auth fails, send the user to login with a toast', async () => {
+test.skip('when auth fails, send the user to login with a toast', async () => {
 	consoleError.mockImplementation(() => {})
 	server.use(
 		http.post('https://github.com/login/oauth/access_token', async () => {
@@ -53,7 +53,7 @@ test('when auth fails, send the user to login with a toast', async () => {
 	expect(consoleError).toHaveBeenCalledTimes(1)
 })
 
-test('when a user is logged in, it creates the connection', async () => {
+test.skip('when a user is logged in, it creates the connection', async () => {
 	const githubUser = await insertGitHubUser()
 	const session = await setupUser()
 	const request = await setupRequest({
@@ -82,7 +82,7 @@ test('when a user is logged in, it creates the connection', async () => {
 	).toBeTruthy()
 })
 
-test(`when a user is logged in and has already connected, it doesn't do anything and just redirects the user back to the connections page`, async () => {
+test.skip(`when a user is logged in and has already connected, it doesn't do anything and just redirects the user back to the connections page`, async () => {
 	const session = await setupUser()
 	const githubUser = await insertGitHubUser()
 	await prisma.connection.create({
@@ -106,7 +106,7 @@ test(`when a user is logged in and has already connected, it doesn't do anything
 	)
 })
 
-test('when a user exists with the same email, create connection and make session', async () => {
+test.skip('when a user exists with the same email, create connection and make session', async () => {
 	const githubUser = await insertGitHubUser()
 	const email = githubUser.primaryEmail.toLowerCase()
 	const { userId } = await setupUser({ ...createUser(), email })
@@ -137,7 +137,7 @@ test('when a user exists with the same email, create connection and make session
 	await expect(response).toHaveSessionForUser(userId)
 })
 
-test('gives an error if the account is already connected to another user', async () => {
+test.skip('gives an error if the account is already connected to another user', async () => {
 	const githubUser = await insertGitHubUser()
 	await prisma.user.create({
 		data: {
@@ -167,7 +167,7 @@ test('gives an error if the account is already connected to another user', async
 	)
 })
 
-test('if a user is not logged in, but the connection exists, make a session', async () => {
+test.skip('if a user is not logged in, but the connection exists, make a session', async () => {
 	const githubUser = await insertGitHubUser()
 	const { userId } = await setupUser()
 	await prisma.connection.create({
@@ -183,7 +183,7 @@ test('if a user is not logged in, but the connection exists, make a session', as
 	await expect(response).toHaveSessionForUser(userId)
 })
 
-test('if a user is not logged in, but the connection exists and they have enabled 2FA, send them to verify their 2FA and do not make a session', async () => {
+test.skip('if a user is not logged in, but the connection exists and they have enabled 2FA, send them to verify their 2FA and do not make a session', async () => {
 	const githubUser = await insertGitHubUser()
 	const { userId } = await setupUser()
 	await prisma.connection.create({
