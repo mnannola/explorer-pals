@@ -9,7 +9,7 @@ name - string
 
 
 
-Trips - An trip, either proposed or planned.
+Trips Schema - An trip, either proposed or planned.
 id - primary - string
 title - string
 description - string
@@ -17,3 +17,10 @@ createdAt - date
 updatedAd - date
 owner - User
 emails - array - string
+
+
+Trip Page
+
+/trips - see trips for user
+/trips/new - create trip
+/trips/$tripId - view single trip details
