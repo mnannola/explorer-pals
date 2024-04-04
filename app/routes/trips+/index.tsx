@@ -12,7 +12,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 			name: true,
 			username: true,
 			image: { select: { id: true } },
-			trips: { select: { id: true, title: true } },
+			trips: { select: { id: true, title: true, description: true } },
 		},
 		where: { id: userId },
 	})
@@ -25,21 +25,19 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function TripsRoute() {
     const data = useLoaderData<typeof loader>();
     return (
-        <main className="container flex h-full min-h-[400px] px-0 pb-12 md:px-8">
-            <p>All of your trips should show here</p>
-            <ul className="overflow-y-auto overflow-x-hidden pb-12">                
+        <main className="container mx-auto py-8">            
+             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {data.owner.trips.map(trip => (
-                    <li key={trip.id} className="p-1 pr-0">
-                        <Link
-                            to={trip.id}
-                            preventScrollReset
-                            prefetch="intent"                            
-                        >
-                            {trip.title}
-                        </Link>
-                    </li>
+                    <Link to={trip.id} prefetch="intent" key={trip.id}>
+                        <div className="rounded-lg border bg-card text-card-foreground shadow-sm w-[350px]">
+                            <div className="px-6 py-4 text-primary">
+                                <h1 className="text-xl text-primary font-bold mb-2">{trip.title}</h1>
+                                <p className="text-sm text-muted-foreground">{trip.description}</p>
+                            </div>
+                        </div>
+                    </Link>
                 ))}
-            </ul>
+             </div>
         </main>
         
     )
