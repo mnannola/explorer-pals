@@ -12,7 +12,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
 			name: true,
 			username: true,
 			image: { select: { id: true } },
-			trips: { select: { id: true, title: true, description: true } },
+			trips: { select: {
+                id: true,
+                title: true,
+                description: true,                
+            } },
 		},
 		where: { id: userId },
 	})

@@ -22,5 +22,5 @@ emails - array - string
 Trip Page
 
 /trips - see trips for user
-/trips/new - create trip
-/trips/$tripId - view single trip details
+TODO: /trips/new - create trip
+TODO: /trips/$tripId - view single trip details
