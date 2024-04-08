@@ -24,3 +24,9 @@ Trip Page
 /trips - see trips for user
 TODO: /trips/new - create trip
 TODO: /trips/$tripId - view single trip details
+
+/trips/new
+* Form to create trip
+- title
+- description
+- list of emails to invite

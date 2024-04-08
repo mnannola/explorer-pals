@@ -84,7 +84,7 @@ model Session {
 model Permission {
   id          String @id @default(cuid())
   action      String // e.g. create, read, update, delete
-  entity      String // e.g. user, etc.
+  entity      String // e.g. user, trip, etc.
   access      String // e.g. own or any
   description String @default("")
 
