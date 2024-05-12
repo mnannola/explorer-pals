@@ -24,6 +24,7 @@ model User {
   roles       Role[]
   sessions    Session[]
   connections Connection[]
+  trips       Trip[]
 }
 
 model UserImage {
@@ -37,6 +38,26 @@ model UserImage {
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String @unique
+}
+
+model Email {
+  id      String @id @default(cuid())
+  address String
+  trips   Trip[]
+}
+
+model Trip {
+  id          String @id @default(cuid())
+  title       String
+  description String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  owner       User @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ownerId     String
+
+  emails      Email[]
 }
 
 model Password {
@@ -63,7 +84,7 @@ model Session {
 model Permission {
   id          String @id @default(cuid())
   action      String // e.g. create, read, update, delete
-  entity      String // e.g. user, etc.
+  entity      String // e.g. user, trip, etc.
   access      String // e.g. own or any
   description String @default("")
 
